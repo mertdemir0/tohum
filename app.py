@@ -12,6 +12,12 @@ class LineGraphGenerator:
         self.root.title("Line Graph Generator")
 
         # Create widgets
+        self.chart_name_label = Label(self.root, text="Enter chart name:")
+        self.chart_name_entry = Entry(self.root)
+        self.teacher_name_label = Label(self.root, text="Enter teacher name:")
+        self.teacher_name_entry = Entry(self.root)
+        self.student_name_label = Label(self.root, text="Enter student name:")
+        self.student_name_entry = Entry(self.root)
         self.x_label = Label(self.root, text="Enter x-values:")
         self.x_entry = Entry(self.root)
         self.y_label = Label(self.root, text="Enter y-values:")
@@ -21,6 +27,12 @@ class LineGraphGenerator:
         self.jpeg_button = Button(self.root, text="Export as JPEG", command=self.export_jpeg)
 
         # Add widgets to window
+        self.chart_name_label.pack()
+        self.chart_name_entry.pack()
+        self.teacher_name_label.pack()
+        self.teacher_name_entry.pack()
+        self.student_name_label.pack()
+        self.student_name_entry.pack()
         self.x_label.pack()
         self.x_entry.pack()
         self.y_label.pack()
@@ -47,14 +59,4 @@ class LineGraphGenerator:
         y_values = [int(y) for x in self.y_entry.get().split(",")]
 
         # Generate line graph
-        plt.plot(x_values, y_values)
-
-        # Prompt user to select a file location and name for the PNG image
-        filepath = filedialog.asksaveasfilename(defaultextension=".png", filetypes=[("PNG", "*.png")])
-
-        # Save the line graph as a PNG image
-        plt.savefig(filepath)
-
-        # Save the x and y values to the database
-        self.conn.execute("INSERT INTO line_graphs (x_values, y_values) VALUES (?, ?)", (self.x_entry.get(), self.y_entry.get()))
-        self.conn.commit()
+        plt.plot(x_values, y_values
